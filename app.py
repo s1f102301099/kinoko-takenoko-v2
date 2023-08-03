@@ -1,5 +1,5 @@
 import re
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request, jsonify
 app = Flask(__name__)
 
 kinoko_count = 3
@@ -11,6 +11,8 @@ def top():
     return render_template('index.html', **vars())
 
 @app.route('/vote', methods=['POST'])
+def vote_api():
+    return jsonify({"kinoko":kinoko_count,"takenoko":takenoko_count})
 def answer():
     global kinoko_count, takenoko_count, messages
     if request.form.get("item") == 'kinoko':
